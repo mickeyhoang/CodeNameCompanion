@@ -1,0 +1,141 @@
+<!--https://www.w3schools.com/code/tryit.asp?filename=FH7R3GX3X153-->
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
+
+.btn {
+	width: 150px;
+    height: 150px;
+}
+
+/* The heart of the matter */
+.btn-matrix > .btn:nth-child(5n+6) {
+  clear: left;
+  margin-left: 0;
+}
+.btn-matrix > .btn:nth-child(n+6) {
+  margin-top: -1px;
+}
+.btn-matrix > .btn:first-child {
+  border-bottom-left-radius: 0;
+}
+.btn-matrix > .btn:nth-child(6) {
+  border-top-right-radius: 4px !important;
+}
+.btn-matrix > .btn:nth-last-child(6) {
+  border-bottom-left-radius: 4px !important;
+}
+.btn-matrix > .btn:last-child {
+  border-top-right-radius: 0;
+}
+
+/* Decorations */
+.btn-matrix {
+  margin: 20px;
+}
+</style>
+<head>
+<body>
+<div>
+	<form>
+  Input Seed (must be a number):<br>
+  <input id="entryText" type="text" name="firstname">
+  <button id="submit" type="button" onclick="sendSeed()">Submit</button>
+	</form>
+</div>
+
+<div class="btn-group btn-matrix">
+  <button id="b0" type="button" class="btn btn-default"></button>
+  <button id="b1" type="button" class="btn btn-default"></button>
+  <button id="b2" type="button" class="btn btn-default"></button>
+  <button id="b3" type="button" class="btn btn-default"></button>
+  <button id="b4" type="button" class="btn btn-default"></button>
+  <button id="b5" type="button" class="btn btn-default"></button>
+  <button id="b6" type="button" class="btn btn-default"></button>
+  <button id="b7" type="button" class="btn btn-default"></button>
+  <button id="b8" type="button" class="btn btn-default"></button>
+  <button id="b9" type="button" class="btn btn-default"></button>
+  <button id="b10" type="button" class="btn btn-default"></button>
+  <button id="b11" type="button" class="btn btn-default"></button>
+  <button id="b12" type="button" class="btn btn-default"></button>
+  <button id="b13" type="button" class="btn btn-default"></button>
+  <button id="b14" type="button" class="btn btn-default"></button>
+  <button id="b15" type="button" class="btn btn-default"></button>
+  <button id="b16" type="button" class="btn btn-default"></button>
+  <button id="b17" type="button" class="btn btn-default"></button>
+  <button id="b18" type="button" class="btn btn-default"></button>
+  <button id="b19" type="button" class="btn btn-default"></button>
+  <button id="b20" type="button" class="btn btn-default"></button>
+  <button id="b21" type="button" class="btn btn-default"></button>
+  <button id="b22" type="button" class="btn btn-default"></button>
+  <button id="b23" type="button" class="btn btn-default"></button>
+  <button id="b24" type="button" class="btn btn-default"></button>
+</div>
+
+<script>
+var openColors = [];
+var colors = [];
+
+function sendSeed() {
+	var seed = document.getElementById("entryText").value;
+    document.getElementById("submit").innerHTML = "Seed is: " + seed;
+    openColors = [];
+    colors =[];
+    startColors();
+	randomColors(seed);
+    for (i = 0; i < 25; i++) {
+		var btnID = 'b' + i;
+		document.getElementById(btnID).style.background = colors[btnID.slice(1)];
+	}    
+}
+
+function startColors() {
+	for (i = 0; i < 25; i++) {
+    	colors.push('#d5d2d8');
+        openColors.push('Open');
+    }
+}
+
+function randomSeed(seed) {
+	var x = Math.sin(++seed) * 5432;
+    return (x - Math.floor(x));
+}
+
+function setColor(num, color) {
+	if (openColors[num] == 'Open') {
+    	openColors[num] = 'Taken';
+        colors[num] = color;
+    }
+    else {
+    	if (num >= 24) {num = 0}
+    	setColor(num+2, color);
+    }
+}
+
+function randomColors(seed) {
+	var blue = '#639af2';
+    var red = '#a86b6b';
+    var black = '#290451';
+    var grey = '#d5d2d8';
+
+    var curBtn = Math.floor(randomSeed(seed+i) * 25);
+    
+    setColor(curBtn, black);
+    
+	for (i = 0; i < 8; i++) {
+    	curBtn = Math.floor(randomSeed(++seed) * 25);
+        setColor(curBtn, blue);
+    }
+    
+    for (j = 0; j < 8; j++) {
+    	curBtn = Math.floor(randomSeed(++seed) * 25);
+        setColor(curBtn, red);
+    }
+}
+
+</script>
+
+</body>
+</html>
